@@ -8,7 +8,7 @@ module PutText
     class Extractor
       def extract
         puttext_extractor = PutText::Extractor.new
-        po_file = puttext_extractor.extract(Rails.root.to_s)
+        po_file = puttext_extractor.extract(root_path)
 
         errors_file = extract_errors
         po_file.merge(errors_file)
@@ -21,7 +21,7 @@ module PutText
       private
 
       def root_path
-        Rails.root.relative_path_from(Pathname.new(Dir.pwd))
+        ::Rails.root.relative_path_from(Pathname.new(Dir.pwd))
       end
 
       def template_path
@@ -29,7 +29,7 @@ module PutText
       end
 
       def locales_path
-        Rails.root.join('config/locales')
+        ::Rails.root.join('config/locales')
       end
 
       def extract_errors
@@ -41,17 +41,27 @@ module PutText
       end
 
       def i18n_error_messages
-        translations = I18n.backend.send(:translations)
-        translations[I18n.default_locale][:errors][:messages]
+        i18n_backend = I18n.backend
+
+        unless i18n_backend.is_a? I18n::Backend::Simple
+          raise 'only I18n::Backend::Simple is supported'
+        end
+
+        i18n_backend.available_locales # Force I18n to load translations
+
+        translations = i18n_backend.send(:translations)
+        translations.fetch(I18n.default_locale, {})
+                    .fetch(:errors, {})
+                    .fetch(:messages, {})
       end
 
       def create_entry_from_translation(translation)
         case translation
         when String
-          POEntry.new(msgctxt: 'errors', msgid: translation)
+          POEntry.new(msgctxt: PutText::Rails::MSG_CONTEXT, msgid: translation)
         when Hash
           POEntry.new(
-            msgctxt: 'errors',
+            msgctxt: PutText::Rails::MSG_CONTEXT,
             msgid: translation[:one] || translation[:other],
             msgid_plural: translation[:other]
           )

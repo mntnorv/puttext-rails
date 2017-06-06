@@ -24,3 +24,7 @@ Style/EndOfLine:
 
 Style/NumericPredicate:
   EnforcedStyle: comparison
+
+Style/FileName:
+  Exclude:
+    - lib/puttext-rails.rb
