@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.executables   = s.files.grep(%r{^bin/}) { |f| File.basename(f) }
   s.require_paths = ['lib']
 
-  s.required_ruby_version = '>= 2.0.0'
+  s.required_ruby_version = '>= 2.2.2'
 
   s.add_runtime_dependency('puttext', '>= 0.2.1', '< 1')
   s.add_runtime_dependency('railties', '>= 5.0', '< 6')
