@@ -24,6 +24,13 @@ Gem::Specification.new do |s|
   # Tools
   s.add_development_dependency('rake')
 
+  # Testing
+  s.add_development_dependency('rspec', '~> 3.5')
+  s.add_development_dependency('unindent')
+  s.add_development_dependency('timecop')
+
   # Linters and code policies
   s.add_development_dependency('rubocop', '~> 0.46.0')
+  s.add_development_dependency('simplecov')
+  s.add_development_dependency('codeclimate-test-reporter', '~> 1.0.0')
 end

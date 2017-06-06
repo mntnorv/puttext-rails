@@ -6,6 +6,8 @@ require 'rails'
 module PutText
   module Rails
     class Extractor
+      # Extract string from the Rails project this gem is included in.
+      # @return [POFile] a POFile object containing the extracted strings.
       def extract
         puttext_extractor = PutText::Extractor.new
         po_file = puttext_extractor.extract(root_path)
@@ -13,23 +15,13 @@ module PutText
         errors_file = extract_errors
         po_file.merge(errors_file)
 
-        File.open(template_path, 'w') do |f|
-          po_file.write_to(f)
-        end
+        po_file
       end
 
       private
 
       def root_path
         ::Rails.root.relative_path_from(Pathname.new(Dir.pwd))
-      end
-
-      def template_path
-        File.join(locales_path, 'template.pot')
-      end
-
-      def locales_path
-        ::Rails.root.join('config/locales')
       end
 
       def extract_errors
