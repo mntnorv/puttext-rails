@@ -1,3 +1,8 @@
+[![Gem Version](https://badge.fury.io/rb/puttext-rails.svg)](http://badge.fury.io/rb/puttext-rails)
+[![Build Status](https://travis-ci.org/mntnorv/puttext-rails.svg)](https://travis-ci.org/mntnorv/puttext-rails)
+[![Code Climate](https://codeclimate.com/github/mntnorv/puttext-rails/badges/gpa.svg)](https://codeclimate.com/github/mntnorv/puttext-rails)
+[![Test Coverage](https://codeclimate.com/github/mntnorv/puttext-rails/badges/coverage.svg)](https://codeclimate.com/github/mntnorv/puttext-rails/coverage)
+
 # puttext-rails
 
 Rails integrations for the puttext gem (https://github/mntnorv/puttext).
